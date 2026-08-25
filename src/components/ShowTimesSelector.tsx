@@ -1,49 +1,8 @@
-import React from 'react';
-import { Button } from "./ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Clock } from "lucide-react";
-import type { ShowTime } from '../data/movies';
+import { ArrowLeft, CalendarDays, Clock, MapPin } from 'lucide-react';
+import type { Movie, ShowTime } from '../data/movies';
 
-interface ShowTimesSelectorProps {
-  movieId: number;
-  showTimes: ShowTime[];
-  onSelectTime: (showTimeId: number) => void;
-  onBack: () => void;
+interface Props { movie: Movie; showTimes: ShowTime[]; onSelectTime: (id: number) => void; onBack: () => void; }
+export default function ShowTimesSelector({ movie, showTimes, onSelectTime, onBack }: Props) {
+  const times = showTimes.filter((showTime) => showTime.movieId === movie.id);
+  return <section className="mx-auto max-w-4xl"><button type="button" onClick={onBack} className="back-button"><ArrowLeft size={16} /> Cartelera</button><div className="mt-7 grid gap-8 rounded-[2rem] bg-[#fffdf8] p-6 shadow-[0_16px_45px_rgba(25,23,23,.08)] sm:grid-cols-[190px_1fr] sm:p-9"><img src={movie.image} alt="" className="hidden aspect-[3/4] w-full rounded-2xl object-cover sm:block" /><div><p className="text-xs font-bold uppercase tracking-[.2em] text-[#e65335]">Elegí tu función</p><h1 className="font-display mt-2 text-4xl">{movie.title}</h1><div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-[#645d56]"><span className="flex items-center gap-2"><CalendarDays size={16} /> Hoy, 25 de agosto</span><span className="flex items-center gap-2"><MapPin size={16} /> Lumen Centro</span></div><div className="mt-9"><p className="text-xs font-bold uppercase tracking-[.16em] text-[#746d66]">Sala 4 · Subtitulada</p><div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">{times.map((time) => <button key={time.id} type="button" onClick={() => onSelectTime(time.id)} className="time-card"><Clock size={16} /><strong>{time.time}</strong><span>Desde Bs 8.50</span></button>)}</div></div></div></div></section>;
 }
-
-const ShowTimesSelector: React.FC<ShowTimesSelectorProps> = ({
-  movieId,
-  showTimes,
-  onSelectTime,
-  onBack
-}) => {
-  const filteredShowTimes = showTimes.filter(showTime => showTime.movieId === movieId);
-
-  return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <span>Horarios disponibles</span>
-          <Button variant="outline" onClick={onBack}>Volver</Button>
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {filteredShowTimes.map((showTime) => (
-            <Button
-              key={showTime.id}
-              variant="outline"
-              className="h-auto py-4 flex flex-col gap-2 hover:bg-primary hover:text-primary-foreground"
-              onClick={() => onSelectTime(showTime.id)}
-            >
-              <Clock className="h-5 w-5" />
-              <span className="text-lg font-bold">{showTime.time}</span>
-            </Button>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
-
-export default ShowTimesSelector;

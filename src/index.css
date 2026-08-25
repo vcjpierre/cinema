@@ -1,27 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@layer base {
-  :root {
-    --radius: 0.5rem
-  ;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%}
-  .dark {
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%
-  }
-}
 
+@layer base { * { border-color: #ded8ce; } body { margin: 0; font-family: 'DM Sans', sans-serif; } button { font: inherit; } }
+@layer components {
+  .font-display { font-family: 'Fraunces', Georgia, serif; letter-spacing: -.04em; }
+  .back-button { @apply inline-flex items-center gap-2 text-sm font-bold text-[#254b42] transition hover:text-[#e65335] focus:outline-none focus:ring-4 focus:ring-[#e65335]/20; }
+  .time-card { @apply flex min-h-28 flex-col items-start rounded-2xl border border-[#ded8ce] bg-[#fffdf8] p-4 text-left text-[#254b42] transition hover:-translate-y-1 hover:border-[#254b42] hover:bg-[#edf1ed] focus:outline-none focus:ring-4 focus:ring-[#254b42]/20; } .time-card strong { @apply mt-3 text-xl; } .time-card span { @apply mt-1 text-[11px] text-[#746d66]; }
+  .screen { @apply mx-auto flex h-12 max-w-xl items-center justify-center rounded-[100%] border-t-4 border-[#e65335] bg-gradient-to-b from-[#fbe4dd] to-transparent text-[10px] font-bold uppercase tracking-[.3em] text-[#a13d2b]; }
+  .seat { @apply grid h-8 w-8 place-items-center rounded-t-md text-[10px] font-bold transition focus:outline-none focus:ring-4 focus:ring-[#e65335]/25 sm:h-10 sm:w-10; } .seat-free { @apply bg-[#d9e4dc] text-[#254b42] hover:-translate-y-0.5 hover:bg-[#b9cfc1]; } .seat-selected { @apply bg-[#e65335] text-white shadow-[0_4px_0_#9b321f]; } .seat-occupied { @apply cursor-not-allowed bg-[#ded8ce] text-[#a39c93]; }
+  .legend { @apply mr-2 inline-block h-3 w-3 rounded-t-sm align-[-1px]; }
+  .ticket-label { @apply text-[10px] font-bold uppercase tracking-[.16em] text-[#746d66]; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
